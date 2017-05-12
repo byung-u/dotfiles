@@ -1,11 +1,8 @@
 " vim: set foldmethod=marker foldlevel=0:       " zr(open), zm(close)
-"
-" .vimrc of Byungwoo Jeon {{{
-"   Origin: https://github.com/junegunn/dotfiles
-" }}}
+
+let os=substitute(system('uname'), '\n', '', '')
 
 " PlugIn {{{
-let os=substitute(system('uname'), '\n', '', '')
 silent! if plug#begin('~/.vim/plugged')
 
 if os == 'Darwin' || os == 'Mac'
@@ -27,13 +24,13 @@ Plug 'junegunn/goyo.vim' "Goyo :Goyo! (on/off) 고요함
 Plug 'junegunn/limelight.vim' "with Goyo
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim' "스페이스바 2번 누르면 실행되고 아직 이해 못함
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } 
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " 정렬 vip로 블록잡고 설정한 ga로 실행
 Plug 'junegunn/vim-after-object'
 Plug 'tpope/vim-repeat'  "아래 명령들 반복해서 쓸 수 있게 해줌
 Plug 'tpope/vim-surround' "ysiw 시작과 끝을 감싸줌 cs는 change, ds는 delete
 Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' } 
-Plug 'tpope/vim-endwise' "스크립트 언어들의 알아서 들여쓰기
-Plug 'mbbill/undotree',  { 'on': 'UndotreeToggle'   } " undo history
+Plug 'tpope/vim-endwise' "스크립트 언어들의 마지막 end 같은 것들 알아서 들여쓰기
+Plug 'mbbill/undotree',  { 'on': 'UndotreeToggle'   } " U로 매핑해뒀는데 이전 이력으로 돌아갈 수 있어서 매우 좋음
 Plug 'AndrewRadev/splitjoin.vim' " 시작 괄호에 커서를 둬야 실행 됨
 Plug 'mileszs/ack.vim' " 선호하는 search tool 사용하여 탐색 ag, grep..
 Plug 'beloglazov/vim-online-thesaurus' " 영영 사전 ons
@@ -335,7 +332,7 @@ nmap gaa ga_
 let g:github_dashboard = { 'username': 'byung-u', 'password': $GITHUB_PW }
 
 " indentLine
-let g:indentLine_enabled = 0
+"let g:indentLine_enabled = 0
 
 " vim-signify
 let g:signify_vcs_list = ['git']
@@ -396,7 +393,7 @@ nnoremap gsj :SplitjoinJoin<CR>
 
 " online thesaurus
 let g:online_thesaurus_map_keys = 0
-nnoremap ons :OnlineThesaurusCurrentWord<CR>
+nnoremap <silent> <Leader>D        :OnlineThesaurusCurrentWord<CR>
 
 " Dash
 nnoremap da :Dash<CR>
@@ -432,5 +429,8 @@ command! Plugs call fzf#run({
   \ 'options': '--delimiter / --nth -1',
   \ 'down':    '~40%',
   \ 'sink':    'Explore'})
+
+map <Leader>v :VimuxPromptCommand<CR>
+"map <Leader>vm :VimuxPromptCommand("make ")<CR>
 
 " }}}
